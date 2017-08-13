@@ -47,6 +47,8 @@ In this early form, this only tests for successful compilation.
 - Have some form of cli that makes it more usable
 - Have its own tests. This project is currently horrendously untested because I'm not sure what the best way to test this is.
 - Have a better name?
+- Change completely in any number of ways
+- Stop parsing full tests and become a block-local transformation
 
 ## How does one use this?
 Good question, it's pretty tricky right now. The TypeScript compiler provides hooks for specifying custom transformers, but `tsc` does not expose these. While many common tools like ts-loader are starting to support transformers, most don't yet provide transformers with access to the `ts.Program` object that this requires.
