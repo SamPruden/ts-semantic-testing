@@ -38,10 +38,10 @@ export class DescribeItFileTransformer {
 
         const args = node.arguments.slice();
         const func = args[1];
-        
+
         if (!(ts.isArrowFunction(func) || ts.isFunctionExpression(func))) return node;
 
-        switch(node.expression.getText()) {
+        switch (node.expression.getText()) {
             case "describe":
                 args[1] = this.visitDescribeFunction(func);
                 break;

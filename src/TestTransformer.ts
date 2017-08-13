@@ -23,7 +23,7 @@ export class TestTransformer {
             if (diagnostic.start + diagnostic.length! > node.getEnd()) return false;
             return true;
         });
-    
+
         const throwStatements = containedDiagnostics.map(diagnostic => {
             const throwStatement = ts.createThrow(
                 ts.createNew(
@@ -32,15 +32,15 @@ export class TestTransformer {
                     [ts.createLiteral(diagnostic.messageText.toString())]
                 )
             );
-    
+
             ts.setSourceMapRange(throwStatement, {
                 pos: diagnostic.start!,
                 end: diagnostic.start! + diagnostic.length!
             });
-    
+
             return throwStatement;
         });
-    
+
         return ts.createBlock(throwStatements, true);
     }
 }

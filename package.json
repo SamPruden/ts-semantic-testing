@@ -8,6 +8,7 @@
     "types": "./dist/index.d.ts",
     "dependencies": {},
     "devDependencies": {
+        "tslint": "^5.6.0",
         "typescript": "^2.5.0-dev.20170808"
     },
     "scripts": {

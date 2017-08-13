@@ -1,5 +1,5 @@
 import * as ts from "typescript";
-import {DescribeItFileTransformer} from "./DescribeItFileTransformer"; 
+import {DescribeItFileTransformer} from "./DescribeItFileTransformer";
 
 export function makeTransformer(program: ts.Program, options?: Options) {
     const factory: ts.TransformerFactory<ts.SourceFile> = context => {
