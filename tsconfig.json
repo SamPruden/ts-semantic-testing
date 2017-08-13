@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "es3",
+        "rootDir": "src",
+        "strict": true,
+        "module": "commonjs",
+        "outDir": "dist",
+        "declaration": true
+    }
+}
