@@ -16,6 +16,7 @@ export class TestTransformer {
     public visitTestBody(node: ts.ConciseBody): ts.Block {
         const diagnostics = this.program.getSemanticDiagnostics(node.getSourceFile());
         const containedDiagnostics = diagnostics.filter(diagnostic => {
+            // I'm not sure when this location info might be undefined, just ignoring for now
             if (diagnostic.start === undefined) return false;
             if (diagnostic.length === undefined) return false;
             if (diagnostic.start < node.getStart()) return false;
@@ -40,6 +41,6 @@ export class TestTransformer {
             return throwStatement;
         });
     
-        return ts.createBlock(throwStatements);
+        return ts.createBlock(throwStatements, true);
     }
 }

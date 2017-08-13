@@ -19,20 +19,20 @@ export class DescribeItFileTransformer {
     }
 
     public visitSourceFile(node: ts.SourceFile): ts.SourceFile {
-        // Skip filtered out files
+        // Skip filtered files
         if (this.options.fileFilter && !this.options.fileFilter(node.fileName)) return node;
 
-        return ts.visitEachChild(node, child => this.visitScopeChild(child), this.context);
+        return ts.visitEachChild(node, child => this.visitBodyChild(child), this.context);
     }
 
-    private visitScopeChild<T extends ts.Node>(node: T): T {
+    private visitBodyChild<T extends ts.Node>(node: T): T {
         if (!ts.isExpressionStatement(node)) return node;
         if (!ts.isCallExpression(node.expression)) return node;
 
-        return ts.updateStatement(node, this.visitScopeChildExpression(node.expression)) as any as T;
+        return ts.updateStatement(node, this.visitBodyChildExpression(node.expression)) as any as T;
     }
 
-    private visitScopeChildExpression(node: ts.CallExpression): ts.CallExpression {
+    private visitBodyChildExpression(node: ts.CallExpression): ts.CallExpression {
         if (!ts.isIdentifier(node.expression)) return node;
         if (node.arguments.length !== 2) return node;
 
@@ -70,7 +70,7 @@ export class DescribeItFileTransformer {
                 node.typeParameters,
                 node.parameters,
                 node.type,
-                this.visitDescribeScope(node.body)
+                this.visitDescribeBody(node.body)
             ) as T;
         } else {
             if (!ts.isBlock(node.body)) return node;
@@ -81,13 +81,13 @@ export class DescribeItFileTransformer {
                 node.typeParameters,
                 node.parameters,
                 node.type,
-                this.visitDescribeScope(node.body)
+                this.visitDescribeBody(node.body)
             ) as T;
         }
     }
 
-    private visitDescribeScope(node: ts.Block): ts.Block {
-        return ts.visitEachChild(node, child => this.visitScopeChild(child), this.context);
+    private visitDescribeBody(node: ts.Block): ts.Block {
+        return ts.visitEachChild(node, child => this.visitBodyChild(child), this.context);
     }
 
     private visitItFunction(node: ts.FunctionExpression | ts.ArrowFunction): ts.FunctionExpression | ts.ArrowFunction {
