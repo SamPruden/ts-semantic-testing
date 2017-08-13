@@ -3,13 +3,21 @@
     "description": "Helper utility for transforming typescript tests to allow testing for semantics rather than functionality.",
     "author": "SPDS",
     "license": "ISC",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "main": "./dist/index.js",
+    "bin": {
+        "tsst": "./dist/build.js"
+    },
     "types": "./dist/index.d.ts",
-    "dependencies": {},
+    "dependencies": {
+        "commandpost": "^1.2.0",
+        "minimatch": "^3.0.4",
+        "typescript": "^2.5.0-dev.20170808"        
+    },
     "devDependencies": {
-        "tslint": "^5.6.0",
-        "typescript": "^2.5.0-dev.20170808"
+        "@types/minimatch": "^2.0.29",
+        "@types/node": "^8.0.20",
+        "tslint": "^5.6.0"
     },
     "scripts": {
         "build": "tsc",

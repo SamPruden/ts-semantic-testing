@@ -9,7 +9,9 @@
         "curly": false,
         "trailing-comma": [false],
         "object-literal-sort-keys": false,
-        "interface-name": [true, "never-prefix"]
+        "interface-name": [true, "never-prefix"],
+        "ordered-imports": [false],
+        "no-console": [false]
     },
     "rulesDirectory": []
 }
