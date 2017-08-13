@@ -10,10 +10,9 @@
     "devDependencies": {
         "typescript": "2.4.2"
     },
-    "directories": {
-        "test": "tests"
-    },
     "scripts": {
+        "build": "tsc",
+        "prepublish": "tsc",
         "test": "echo \"Error: no test specified\" && exit 1"
     }
 }
