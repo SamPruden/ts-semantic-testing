@@ -56,7 +56,7 @@ In this early form, this only tests for successful compilation.
 - [ ] Stop parsing full tests and become a block-local transformation
 
 ## How does one use this?
-if you install this package globally, you can call `tsst` to transform the tests. This is a very basic builder. It uses the local `tsconfig.json` and takes a single argument for a test glob.
+If you install this package globally, you can call `tsst` to transform the tests. This is a very basic builder. It uses the local `tsconfig.json` and takes a single argument for a test glob.
 
 The TypeScript compiler provides hooks for specifying custom transformers, but `tsc` does not expose these. While many common tools like ts-loader are starting to support transformers, most don't yet provide transformers with access to the `ts.Program` object that this requires.
 
