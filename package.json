@@ -3,7 +3,7 @@
     "description": "Helper utility for transforming typescript tests to allow testing for semantics rather than functionality.",
     "author": "Sam Pruden",
     "license": "ISC",
-    "version": "0.2.7",
+    "version": "0.2.8",
     "main": "./dist/index.js",
     "bin": {
         "tsst": "./dist/build.js"
