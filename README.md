@@ -1,6 +1,6 @@
 ## Installation
 ```
-npm install tsst
+npm install -g tsst
 ```
 
 ## What is it?
