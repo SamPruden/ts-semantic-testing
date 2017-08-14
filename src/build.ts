@@ -21,9 +21,12 @@ function build(glob: string, project?: string) {
 
     program.getSourceFiles()
         .filter(file => minimatch(file.fileName, glob))
-        .forEach(file => program.emit(file, undefined, undefined, undefined, {
-            before: [transformer]
-        }));
+        .forEach(file => {
+            console.log(file.fileName);
+            return program.emit(file, undefined, undefined, undefined, {
+                before: [transformer]
+            });
+        });
 }
 
 const post = commandpost
