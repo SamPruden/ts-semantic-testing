@@ -1,4 +1,7 @@
-src
+.vscode/
+src/
+
 tsconfig.json
+tslint.json
 .gitignore
-.vscode
+.npmignore
