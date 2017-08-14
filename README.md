@@ -6,7 +6,6 @@ npm install -g tsst
 npm install tsst --save-dev
 ```
 
-
 ## What is it?
 Uhh. This is an experimental library/tool/utility/thing to aid testing of TypeScript _semantics_.
 
@@ -68,8 +67,6 @@ tsst "**/*.test.ts"
 # local install
 node node_modules/tsst/dist/build.js "**/*.test.ts"
 ```
-
-Alternatively, install it locally:
 
 The TypeScript compiler provides hooks for specifying custom transformers, but `tsc` does not expose these. While many common tools like ts-loader are starting to support transformers, most don't yet provide transformers with access to the `ts.Program` object that this requires.
 
