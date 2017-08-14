@@ -3,7 +3,7 @@
     "description": "Helper utility for transforming typescript tests to allow testing for semantics rather than functionality.",
     "author": "Sam Pruden",
     "license": "ISC",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "main": "./dist/index.js",
     "bin": {
         "tsst": "./dist/build.js"
@@ -12,7 +12,7 @@
     "dependencies": {
         "commandpost": "^1.2.0",
         "minimatch": "^3.0.4",
-        "typescript": "^2.5.0-dev.20170808"        
+        "typescript": "^2.5.0-dev.20170808"
     },
     "devDependencies": {
         "@types/minimatch": "^2.0.29",
