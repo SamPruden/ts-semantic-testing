@@ -40,12 +40,14 @@ export function tsst(scope: () => void | ReadonlyArray<Error>): TsstResult {
         },
         expectToFail() {
             if (!this.errors.length) {
-                throw new Error("No semantic failures");
+                throw new Error(`No semantic failures`);
             }
         },
         expectToFailWith(msg: string | RegExp) {
-            if (this.errors.filter(e => RegExp(msg).test(e.message)).length === 0) {
-                throw new Error("No matching semantic failures");
+            if (!this.errors.length) {
+                throw new Error(`No matching semantic failures, expected "${msg}"!`);
+            } else if (this.errors.filter(e => RegExp(msg).test(e.message)).length === 0) {
+                throw new Error(`Expected failure "${msg}", got failure "${this.errors[0]}"!`);
             }
         }
     };
