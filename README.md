@@ -65,7 +65,7 @@ If you install this package globally, you can use `tsst` to transform the tests.
 # global install
 tsst "**/*.test.ts"
 # local install
-node node_modules/tsst/dist/build.js "**/*.test.ts"
+node_modules/.bin/tsst "**/*.test.ts"
 ```
 
 The TypeScript compiler provides hooks for specifying custom transformers, but `tsc` does not expose these. While many common tools like ts-loader are starting to support transformers, most don't yet provide transformers with access to the `ts.Program` object that this requires.
