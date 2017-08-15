@@ -8,8 +8,6 @@ import * as commandpost from "commandpost";
 import { makeTransformer, makeBlockTransformer } from "./";
 
 function build(glob: string, project?: string, useBlock?: boolean, outDir?: string) {
-    console.log("block", useBlock);
-
     const projectPath = project || "./";
     const configPath = ts.findConfigFile(projectPath, ts.sys.fileExists);
     const basePath = path.resolve(path.dirname(configPath)); /*?*/
