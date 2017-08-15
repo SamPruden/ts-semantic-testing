@@ -33,7 +33,7 @@ function build(glob: string, project?: string, useBlock?: boolean, outDir?: stri
 }
 
 const post = commandpost
-    .create<CommandPostOptions, {glob: string}>("tsst <glob>")
+    .create<CommandPostOptions, { glob: string }>("tsst <glob>")
     .option("-p, --project <path>", "Specify a project directory")
     .option("-d, --directory <path>", "Specify an output directory")
     .option("-b, --block", "Use the experimental block transformer")
