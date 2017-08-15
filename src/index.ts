@@ -58,3 +58,5 @@ export interface TsstResult {
     expectToFail(): void;
     expectToFailWith(msg: string | RegExp): void;
 }
+
+export function the<T, V extends T>() {}
