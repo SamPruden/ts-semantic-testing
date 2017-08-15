@@ -17,6 +17,7 @@ function build(glob: string, project?: string, useBlock?: boolean, outDir?: stri
 
     const config = ts.parseJsonConfigFileContent(configReadResult.config, ts.sys, basePath);
 
+    config.options.noEmit = false;
     if (outDir) config.options.outDir = outDir;
 
     const program = ts.createProgram(config.fileNames, config.options);
