@@ -1,19 +1,21 @@
 import * as ts from "typescript";
 import { Options } from "./index";
 
-export class DescribeItFileTransformer {
+export class BlockTransformer {
     private readonly context: ts.TransformationContext;
     private readonly program: ts.Program;
-    private readonly options: Options;
 
-    constructor(context: ts.TransformationContext, program: ts.Program, options?: Options) {
+    constructor(context: ts.TransformationContext, program: ts.Program) {
         this.context = context;
         this.program = program;
-        this.options = options || {};
     }
 
     public visitSourceFile(node: ts.SourceFile): ts.SourceFile {
-        return this.visitNode(node);
+        return this.visitNodeAndChildren(node);
+    }
+
+    private visitNodeAndChildren<T extends ts.Node>(node: T): T {
+        return ts.visitEachChild(this.visitNode(node), childNode => this.visitNodeAndChildren(childNode), this.context);
     }
 
     private visitNode<T extends ts.Node>(node: T): T {
@@ -26,34 +28,41 @@ export class DescribeItFileTransformer {
 
         const arg = node.arguments[0];
 
-        if (ts.isFunctionExpression(arg)) {
-            return ts.updateFunctionExpression(
-                arg,
-                arg.modifiers,
-                arg.asteriskToken,
-                arg.name,
-                arg.typeParameters,
-                arg.parameters,
-                arg.type,
-                this.visitTsst(arg.body)
-            ) as ts.Node as T;
-        }
+        if (!ts.isFunctionExpression(arg) && !ts.isArrowFunction(arg)) return node;
 
-        if (ts.isArrowFunction(arg)) {
-            return ts.updateArrowFunction(
-                arg,
-                arg.modifiers,
-                arg.typeParameters,
-                arg.parameters,
-                arg.type,
-                this.visitTsst(arg.body)
-            ) as ts.Node as T;
-        }
-
-        return node;
+        return ts.updateCall(
+            node,
+            node.expression,
+            node.typeArguments,
+            [this.visitTsstFunction(arg)]
+        ) as ts.Node as T;
     }
 
-    private visitTsst(node: ts.ConciseBody): ts.Block {
+    private visitTsstFunction(node: ts.FunctionExpression | ts.ArrowFunction) {
+        if (ts.isFunctionExpression(node)) {
+            return ts.updateFunctionExpression(
+                node,
+                node.modifiers,
+                node.asteriskToken,
+                node.name,
+                node.typeParameters,
+                node.parameters,
+                node.type,
+                this.visitTsstBlock(node.body)
+            );
+        } else {
+            return ts.updateArrowFunction(
+                node,
+                node.modifiers,
+                node.typeParameters,
+                node.parameters,
+                node.type,
+                this.visitTsstBlock(node.body)
+            );
+        }
+    }
+
+    private visitTsstBlock(node: ts.ConciseBody): ts.Block {
         const diagnostics = this.program.getSemanticDiagnostics(node.getSourceFile());
         const containedDiagnostics = diagnostics.filter(diagnostic => {
             // I'm not sure when this location info might be undefined, just ignoring for now
