@@ -59,7 +59,7 @@ In this early form, this only tests for successful compilation.
 - [ ] Stop parsing full tests and become a block-local transformation
 
 ## How does one use this?
-If you install this package globally, you can use `tsst` to transform the tests. This is a very basic builder. It uses the local `tsconfig.json` and takes a single argument for a test glob.
+If you install this package globally, you can use `tsst` to transform the tests. This is a very basic builder. It uses the local `tsconfig.json` and takes a single argument for a test glob. Note that `noEmit` should be left to `false` (the default value).
 
 ```
 # global install
