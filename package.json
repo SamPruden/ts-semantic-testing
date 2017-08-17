@@ -12,6 +12,7 @@
     "dependencies": {
         "commandpost": "^1.2.0",
         "minimatch": "^3.0.4",
+        "rxjs": "^5.4.3",
         "typescript": "^2.5.0-dev.20170808"
     },
     "devDependencies": {

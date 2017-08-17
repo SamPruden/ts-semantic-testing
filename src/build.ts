@@ -6,6 +6,7 @@ import * as path from "path";
 import * as minimatch from "minimatch";
 import * as commandpost from "commandpost";
 import { makeTransformer, makeBlockTransformer } from "./";
+import { Observable } from "rxjs";
 
 function build(glob: string, project?: string, useBlock?: boolean, outDir?: string) {
     const projectPath = project || "./";
@@ -27,8 +28,13 @@ function build(glob: string, project?: string, useBlock?: boolean, outDir?: stri
         .filter(file => minimatch(file.fileName, glob))
         .forEach(file => {
             console.log(file.fileName);
-            return program.emit(file, undefined, undefined, undefined, {
-                before: [transformer]
+            Observable.defer(() => Observable.of(
+                program.emit(file, undefined, undefined, undefined, {
+                    before: [transformer]
+                })
+            )).timeout(200).toPromise()
+            .catch((e) => {
+                console.warn(`timeout: ${file.fileName}`);
             });
         });
 }
