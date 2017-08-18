@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es3",
+        "target": "es2015",
         "rootDir": "src",
         "strict": true,
         "module": "commonjs",
